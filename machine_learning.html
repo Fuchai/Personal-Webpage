@@ -1,0 +1,43 @@
+      <!--section id="machinelearning"-->
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12 text-center">
+                  <h2>Machine Learning</h2>
+                  <div class="strike">
+                     <span>
+                     <i class="fa fa-star fa-2x" aria-hidden="true"></i>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <span class="section-intro">Machine Learning will be my career.
+            </br>Imagine a world where intelligence is not a scarce resource. </br>Human will have no place in it.</br>Unless you are the creator.
+            </span>
+            <div class="row" style="margin-top:20px; height:700px; position:relative;">
+               <div id="animation-box">
+                  <div ng-controller="AppCtrl" ng-cloak>
+                     <md-content id="mlbutton">
+                        <h1>t-SNE on Word Embeddings</h1>
+                        <p>This is a machine learning demo that runs in your browser.
+                           </br>Words with similar meanings are displayed together.</br>Model is trained with neural network, displayed with t-SNE.
+                        </p>
+                        <p>Try scrolling and dragging.</p>
+                        <!--section> <!--layout="row" layout-sm="column" layout-align="center center" layout-wrap-->
+                        <md-button class="md-raised md-primary" id="RunDemo" ng-disabled="demoisDisabled" ng-click="rundemo();disabledemoButton();fadeout();">Run Demo</md-button>
+                        <!--/section-->
+                     </md-content>
+                  </div>
+                  <div id="embed"></div>
+                  <span id="cost"></span>
+               </div>
+               <div id="pause-box" class="hidden">
+                  <div ng-controller="AppCtrl" ng-cloat>
+                     <md-content id="resumebutton">
+                        <h1>This demo is paused</h1>
+                        <md-button class="md-raised md-primary" id="RunDemo" ng-disabled="continueisDisabled" ng-click="fadeout();disablecontinueButton();continue();">Continue</md-button>
+                     </md-content>
+                  </div>
+               </div>
+            </div>
+         </div>
+      <!--/section-->
