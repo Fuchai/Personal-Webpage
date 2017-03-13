@@ -1,4 +1,4 @@
-
+// Git file
 
 // better image preloading @ https://perishablepress.com/press/2009/12/28/3-ways-preload-images-css-javascript-ajax/
 function preloader() {
@@ -29,11 +29,20 @@ addLoadEvent(preloader);
 //AngularJS button
 angular.module('angularapp', ['ngMaterial']).controller('AppCtrl', buttonController);
 
-function buttonController($scope) {
+var mlPaused=false;
+
+
+function buttonController($scope,$window) {
     $scope.isDisabled=false;
+	
     $scope.disableButton=function(){
         $scope.isDisabled=true;
-    }        
+    }
+	$scope.continueifnotPaused=function(){
+		if (!$window.mlPaused){
+			step();
+		}
+	}
     $scope.rundemo=function(){
         $.getJSON("data/wordvecs50dtop1000.json", function(j) {
         data = j;
@@ -43,16 +52,24 @@ function buttonController($scope) {
         // draw initial embedding
 
         //T.debugGrad();
-        setInterval(step, 0);
+        setInterval(continueifnotPaused(), 0);
         //step();
-    });
-    $scope.fadeout=function(){
-        $("#mlbutton").fadeToggle()
-    }
-
-    }
+    	});
+	    $scope.fadeout=function(){
+	        $("#mlbutton").fadeToggle();
+	    }
+	}
 }
 
+$(window).scroll(function() {
+   var hT = $('#photography').offset().top,
+       hH = $('#photography').outerHeight(),
+       wH = $(window).height(),
+       wS = $(this).scrollTop();
+   if (wS > (hT+hH-wH)){
+       console.log('H1 on the view!');
+   }
+});
 
 
 // This runs the machine learning graph
