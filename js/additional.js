@@ -30,35 +30,44 @@ addLoadEvent(preloader);
 angular.module('angularapp', ['ngMaterial']).controller('AppCtrl', buttonController);
 
 var mlPaused=false;
-
+var ranOnce=false;
+var continueisDisabled=false;
 
 function buttonController($scope,$window) {
-    $scope.isDisabled=false;
+    $scope.demoisDisabled=false;
 	
-    $scope.disableButton=function(){
-        $scope.isDisabled=true;
+    $scope.disablecontinueButton=function(){
+    	$window.continueisDisabled=true;
+    }
+    $scope.disabledemoButton=function(){
+        $scope.demoisDisabled=true;
     }
 	$scope.continueifnotPaused=function(){
-		if (!$window.mlPaused){
-			step();
-		}
+
 	}
+	
     $scope.rundemo=function(){
-        $.getJSON("data/wordvecs50dtop1000.json", function(j) {
+        $.getJSON("https://api.myjson.com/bins/g94r5", function(j) {
         data = j;
         T.initDataRaw(data.vecs);
         // init embedding
         drawEmbedding();
         // draw initial embedding
-
+		$window.ranOnce=true;
         //T.debugGrad();
-        setInterval(continueifnotPaused(), 0);
+        setInterval(function(){if (!$window.mlPaused)step();}, 0);
+
         //step();
     	});
 	    $scope.fadeout=function(){
 	        $("#mlbutton").fadeToggle();
 	    }
 	}
+	$scope.continue=function() {
+		$("#pause-box").removeClass("visible").addClass("hidden");
+		mlPaused=false;
+	}
+	
 }
 
 $(window).scroll(function() {
@@ -66,8 +75,15 @@ $(window).scroll(function() {
        hH = $('#photography').outerHeight(),
        wH = $(window).height(),
        wS = $(this).scrollTop();
-   if (wS > (hT+hH-wH)){
-       console.log('H1 on the view!');
+   if (wS > (hT-300)&& ranOnce==true){
+       mlPaused=true;
+       $("#pause-box").removeClass("hidden").addClass("visible");
+       continueisDisabled=false;
+   }
+   if (wS < (hT-1400) && ranOnce==true){
+	   mlPaused=true
+	   $("#pause-box").removeClass("hidden").addClass("visible");
+	   continueisDisabled=false;
    }
 });
 
@@ -101,7 +117,7 @@ var data;
 function updateEmbedding() {
     var Y = T.getSolution();
     svg.selectAll('.u').data(data.words).attr("transform", function(d, i) {
-        return "translate(" + ((Y[i][0] * 20 * ss + tx) + 400) + "," + ((Y[i][1] * 20 * ss + ty) + 400) + ")";
+        return "translate(" + ((Y[i][0] * 20 * ss + tx) + 300) + "," + ((Y[i][1] * 20 * ss + ty) + 300) + ")";
     });
 }
 
