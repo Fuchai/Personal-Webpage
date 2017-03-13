@@ -1,6 +1,7 @@
 // Git file
 
 // better image preloading @ https://perishablepress.com/press/2009/12/28/3-ways-preload-images-css-javascript-ajax/
+
 function preloader() {
     if (document.getElementById) {
         document.getElementById("preload-01").style.background = "url(img/portfolio/mom_low.jpg) no-repeat -9999px -9999px";
@@ -11,6 +12,7 @@ function preloader() {
         document.getElementById("preload-03").style.background = "url(img/portfolio/yunnan_low.jpg) no-repeat -9999px -9999px";
     }
 }
+
 function addLoadEvent(func) {
     var oldonload = window.onload;
     if (typeof window.onload != 'function') {
@@ -25,6 +27,7 @@ function addLoadEvent(func) {
     }
 }
 addLoadEvent(preloader);
+
 
 //AngularJS button
 angular.module('angularapp', ['ngMaterial']).controller('AppCtrl', buttonController);
